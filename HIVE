@@ -1,0 +1,22 @@
+
+// Table custs
+Create table custs(id string, f_name string, l_name string, age int, profession string) row format delimited fields terminated by "," stored as textfile;
+
+load data local inpath "custs.txt" into table custs;
+// 1
+Select profession, count(concat(f_name,” ”,l_name)) from cysts group by(profession);
+
+// Table sales
+create table sales(txn_id string, txn_date string,
+cust_id string, amount float, category string, 
+product string, city string, state string, spendby string) 
+row format delimited fields terminated by ',';
+load data local inpath "sales.txt" into table sales;  
+
+// 2
+Select product, count(txn_id) as Total from sales group by(product) order by (Total) desc limit 10;
+ 
+// 3
+Create table sale_part(txn_id string, txn_date string, cust_id string, amount float,product string, city string, state string, spendby string)partitioned by(category string) row format delimited fields terminated by “,”;
+
+insert into sale_part partition(category) select txn_id,txn_date,cust_id,amount,category,product,city,state,spendby from sales; 
