@@ -1,0 +1,28 @@
+
+//1
+a=sc.textFile("hdfs://nameservice1/user/bigcdac432578/exam/airlines.csv")
+c=a.first() 
+d=a.filter(lambda x:x!=c)
+b=d.map(lambda x:(x.split(",")[0],float(x.split(",")[3])))
+e=b.reduceByKey(lambda x,y:x+y)
+f=e.sortBy(lambda x:-x[1])
+f.take(1)
+
+//2
+a=sc.textFile("hdfs://nameservice1/user/bigcdac432578/exam/airlines.csv")
+c=a.first() 
+d=a.filter(lambda x:x!=c)
+b=d.map(lambda x:(x.split(",")[0],float(x.split(",")[2])))
+e=b.reduceByKey(lambda x,y:x+y)
+f=e.sortBy(lambda x:-x[1])
+f.take(1)
+
+//3
+a=sc.textFile("hdfs://nameservice1/user/bigcdac432578/exam/airlines.csv")
+c=a.first() 
+d=a.filter(lambda x:x!=c)
+b=d.map(lambda x:(x.split(",")[0:2],float(x.split(",")[2])))
+e=b.sortBy(lambda a:-a[1])
+e.take(1)
+
+
